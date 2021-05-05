@@ -1,0 +1,35 @@
+:root {
+  --primary: #fedd00;
+}
+
+* {
+  & {
+    ::-webkit-scrollbar-track  {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 20px;
+    }
+    ::-webkit-scrollbar  {
+      width: 8px;
+    }
+  }
+  scrollbar-color: var(--primary) transparent; /* thumb and track color */
+  scrollbar-width: thin;
+}
+
+html, body, #root {
+  height: 500px;
+  width: 320px;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
