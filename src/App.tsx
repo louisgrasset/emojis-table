@@ -1,10 +1,10 @@
 import './App.scss';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { browser } from "webextension-polyfill-ts";
+import React, { useCallback, useMemo, useState } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
 
 import Search from './Search';
+import Attribution from './Attribution';
 
 const emojis = require("emojilib");
 
@@ -28,16 +28,6 @@ function App() {
   let rowCount = useMemo(() => Math.ceil(emojisCharacters.length / columnCount), [emojisCharacters, columnCount])
   const [emojisHistory, setEmojisHistory] = useState<{ emojis: string[] }>({ emojis: [] });
 
-  useEffect(() => {
-    browser.storage.local.get('history').then((data: any) => {
-      setEmojisHistory({ emojis: (data?.history ? data.history : ['🍋', '🍣', '🌱', '🌸', '🔥']) });
-    })
-  }, [])
-
-  useEffect(() => {
-    browser.storage.local.set({ 'history': emojisHistory.emojis });
-  }, [emojisHistory])
-
   const saveEmoji = useCallback((e: string) => {
     let history: string[] = emojisHistory.emojis ? emojisHistory.emojis : [];
     if (!history.includes(e)) {
@@ -55,6 +45,7 @@ function App() {
   }, [saveEmoji]);
   return (
     <div className="app" >
+      <Attribution />
       <Search search={search} setSearch={setSearch} placeholder={placeholder}></Search>
       <div className="emojis-list--emojis-history" style={{ gridTemplateColumns: `repeat(${columnCount}, 1fr)` }}>
         {
