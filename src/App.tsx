@@ -47,7 +47,7 @@ function App() {
       history.unshift(e);
       setEmojisHistory({ emojis: history });
     }
-  }, [emojisHistory]);
+  }, [emojisHistory, columnCount]);
 
   const copyEmoji = useCallback((e: string) => {
     const clipboard = navigator.clipboard;
