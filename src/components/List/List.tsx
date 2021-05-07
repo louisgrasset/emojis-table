@@ -15,19 +15,19 @@ interface ListProps {
 export function List({ emojis, rowCount, columnCount, copyEmoji }: ListProps) {
     return (
         emojis.length
-            ? <div style={{ position: 'relative', height: 'calc(100% - 7rem)' }}>
+            ? <div className="list-wrappper" style={{ position: 'relative', height: 'calc(100% - 7rem)' }}>
                 {
                     <AutoSizer>
                         {({ width, height }) => (
                             <Grid
                                 cellRenderer={({ columnIndex, key, rowIndex, style }) => {
                                     const emoji = emojis[rowIndex * columnCount + columnIndex];
-                                    return <div className={'emojis-list__item'} key={key} style={style} onClick={() => copyEmoji(emoji)}>
+                                    return <div className={'list__item'} key={key} style={style} onClick={() => copyEmoji(emoji)}>
                                         {emoji}
                                     </div>
                                 }
                                 }
-                                className={'emojis-list'}
+                                className={'list'}
                                 columnWidth={width / columnCount}
                                 columnCount={columnCount}
                                 height={height}
@@ -41,7 +41,7 @@ export function List({ emojis, rowCount, columnCount, copyEmoji }: ListProps) {
                     </AutoSizer>
                 }
             </div>
-            : <div className="emojis-list--emojis-note">
+            : <div className="list--emojis-note">
                 <h1>😔</h1>
                 <p>Nothing...</p>
             </div>

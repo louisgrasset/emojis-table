@@ -8,15 +8,15 @@ interface HistoryProps {
 }
 export function History({ history, copyEmoji }: HistoryProps) {
     return (
-        <div className="emojis-list--emojis-history">
+        <div className="list--emojis-history">
             {
                 history.emojis?.map((emoji, key) => (
-                    <div className={'emojis-list__item'} key={key} onClick={() => copyEmoji(emoji)}>
-                        {emoji}
+                    <div className={'list__item'} key={key} onClick={() => copyEmoji(emoji)}>
+                        { emoji}
                     </div>
                 ))
             }
-        </div>
+        </div >
     )
 }
 
