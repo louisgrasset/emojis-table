@@ -1,0 +1,32 @@
+.emojis-list {
+    &__item {
+        text-align: center;
+        font-size: 1.9rem;
+        line-height: 3rem;
+        cursor: pointer;
+        transition: transform .1s ease;
+        user-select: none;
+        &:hover {
+            transform: scale(1.2);
+        }
+        &:active {
+            transform: scale(1);
+        }
+    }
+
+    .ReactVirtualized__Grid__innerScrollContainer {
+        width: calc(100% - 10px) !important;
+    }
+    
+    &--emojis-note {
+        display: flex;
+        flex-direction: column;
+        height: 1rem;
+        text-align: center;
+        p {
+            margin: 0;
+            font-size: 1.2rem;
+            opacity: .2;
+        }
+    }
+}

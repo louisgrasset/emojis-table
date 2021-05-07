@@ -1,6 +1,6 @@
 import './Attribution.scss';
 
-function Attribution() {
+export function Attribution() {
     return (
         <div className="attribution">
             <div className="attribution__container">
@@ -11,5 +11,3 @@ function Attribution() {
         </div>
     );
 }
-
-export default Attribution
