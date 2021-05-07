@@ -1,4 +1,5 @@
 .emojis-list {
+    overflow-x: hidden !important;
     &__item {
         text-align: center;
         font-size: 1.9rem;
@@ -14,10 +15,6 @@
         }
     }
 
-    .ReactVirtualized__Grid__innerScrollContainer {
-        width: calc(100% - 10px) !important;
-    }
-    
     &--emojis-note {
         display: flex;
         flex-direction: column;
