@@ -52,7 +52,8 @@
         }
         &--emojis-history {
             margin-top: 4rem;
-            display: grid;
+            display: flex;
+            justify-content: space-around;
             height: 3rem;
             background-color: #fff;
             border-bottom: 1px solid #f3f3f3;

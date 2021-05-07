@@ -47,7 +47,7 @@ function App() {
     <div className="app" >
       <Attribution />
       <Search search={search} setSearch={setSearch} placeholder={placeholder}></Search>
-      <div className="emojis-list--emojis-history" style={{ gridTemplateColumns: `repeat(${columnCount}, 1fr)` }}>
+      <div className="emojis-list--emojis-history">
         {
           emojisHistory.emojis?.map((emoji, key) => (
             <div className={'emojis-list__item'} key={key} onClick={() => copyEmoji(emoji)}>
