@@ -1,0 +1,11 @@
+.emojis-list {
+    &--emojis-history {
+        margin-top: 4rem;
+        display: flex;
+        justify-content: space-around;
+        height: 3rem;
+        background-color: #fff;
+        border-bottom: 1px solid #f3f3f3;
+        box-shadow: 0 .2rem .5rem rgba(139, 139, 139, 0.16)
+    }
+}

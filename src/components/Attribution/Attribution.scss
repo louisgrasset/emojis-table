@@ -1,0 +1,20 @@
+.attribution {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    width: 17rem;
+    z-index: 2;
+    &__container {
+        padding: .3rem .8rem;
+        border-radius: 1rem;
+        background-color: #ffffff;
+        box-shadow: 0 0 .5rem rgba(122, 122, 122, 0.16);
+        color: #000000;
+        a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
+}
