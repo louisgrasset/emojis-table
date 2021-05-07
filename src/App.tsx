@@ -1,6 +1,6 @@
 import './App.scss';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
 
 import Search from './Search';
@@ -9,24 +9,26 @@ import Attribution from './Attribution';
 const emojis = require("emojilib");
 
 function App() {
-
+  const elementRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState('');
-  let columnCount = 5;
+  const [columnCount, setColumnCount] = useState(5);
+  const [emojisHistory, setEmojisHistory] = useState<{ emojis: string[] }>({ emojis: ['🍋', '🍣', '🌱', '🌸', '🔥'] });
 
   const emojisData = useMemo(
     () => Object.keys(emojis)
       .map((e: any) => (({ character: e, keywords: emojis[e].map((k: string) => k.replace(/[_-]/g, " ")) }))),
     []);
 
-  let placeholder = useMemo(() => emojisData[Math.floor(Math.random() * emojisData.length)].keywords[0], [emojisData]);
+  const placeholder = useMemo(() => emojisData[Math.floor(Math.random() * emojisData.length)].keywords[0], [emojisData]);
 
   const emojisList = useMemo(
     () => emojisData.filter(e => search.length > 0 ? (e.keywords.filter((k: string) => k.includes(search)).length ? e : null) : e),
     [search, emojisData]);
 
   const emojisCharacters = useMemo(() => emojisList.map(e => e.character), [emojisList]);
-  let rowCount = useMemo(() => Math.ceil(emojisCharacters.length / columnCount), [emojisCharacters, columnCount])
-  const [emojisHistory, setEmojisHistory] = useState<{ emojis: string[] }>({ emojis: [] });
+
+  const rowCount = useMemo(() => Math.ceil(emojisCharacters.length / columnCount), [emojisCharacters, columnCount])
+  const handleColumns = useCallback(() => { if (elementRef.current) { setColumnCount(Math.ceil(elementRef?.current.getBoundingClientRect().width / 60)) } }, [elementRef])
 
   const saveEmoji = useCallback((e: string) => {
     let history: string[] = emojisHistory.emojis ? emojisHistory.emojis : [];
@@ -39,12 +41,17 @@ function App() {
     }
   }, [emojisHistory, columnCount]);
 
-  const copyEmoji = useCallback((e: string) => {
-    const clipboard = navigator.clipboard;
-    clipboard.writeText(e).then(() => saveEmoji(e))
-  }, [saveEmoji]);
+  const copyEmoji = useCallback((e: string) => navigator.clipboard.writeText(e).then(() => saveEmoji(e)), [saveEmoji]);
+
+  useLayoutEffect(handleColumns, [elementRef, handleColumns]);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleColumns);
+    return () => window.removeEventListener('resize', handleColumns);
+  }, [handleColumns])
+
   return (
-    <div className="app" >
+    <div className="app" ref={elementRef}>
       <Attribution />
       <Search search={search} setSearch={setSearch} placeholder={placeholder}></Search>
       <div className="emojis-list--emojis-history">
