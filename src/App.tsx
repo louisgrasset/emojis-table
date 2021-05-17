@@ -6,6 +6,7 @@ import { History } from './components/History';
 import { List } from './components/List';
 import { Search } from './components/Search';
 import { Attribution } from './components/Attribution';
+import { Extensions } from './components/Extensions';
 
 const rawEmojis = require("emojilib");
 
@@ -57,6 +58,7 @@ function App() {
       <Search search={search} setSearch={setSearch} placeholder={placeholder}></Search>
       <History history={emojisHistory} copyEmoji={copyEmoji} />
       <List emojis={emojisCharacters} copyEmoji={copyEmoji} rowCount={rowCount} columnCount={columnCount} />
+      <Extensions />
       <Attribution />
     </div>
   );
