@@ -1,0 +1,7 @@
+.section-list  {
+  grid-area: list;
+  height: calc(100vh - (2 * 56px));
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding-bottom: 40px;
+}

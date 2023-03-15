@@ -1,0 +1,18 @@
+.section-search {
+  grid-area: search;
+  height: 56px;
+  background: $primary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    background: transparent;
+    color: #000;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    font-size: 24px;
+    width: 90%;
+  }
+}

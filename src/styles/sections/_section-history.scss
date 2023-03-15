@@ -1,0 +1,11 @@
+.section-history {
+  box-sizing: border-box;
+  grid-area: history;
+  height: 56px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}

@@ -6,5 +6,5 @@ Available here [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/emojis
 ### Build
 Just run `npm i` then `npm run build` 
 
-_Do not forget that emojis support (here Unicode 11.0) is made via your operating system : 💻 / 📱 / ⌚._
-![emojis-table Screenshot](emojis-table-screenshot.png)
+_Do not forget that emojis support is may differ from your operating system : 💻 / 📱 / ⌚._
+![emojis-table Screenshot](meta/emojis-table-screenshot.png)

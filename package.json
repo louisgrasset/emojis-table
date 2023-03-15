@@ -1,48 +1,36 @@
 {
-  "name": "emoji-table-react",
-  "version": "0.1.0",
+  "name": "emojis-table",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.1.9",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.5",
-    "@types/react": "^17.0.11",
-    "@types/react-dom": "^17.0.8",
-    "@types/react-virtualized": "^9.21.11",
-    "emojilib": "^3.0.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "react-virtualized": "^9.22.3",
-    "sass": "^1.35.1",
-    "typescript": "^4.3.4",
-    "web-vitals": "^2.0.1",
-    "webextension-polyfill-ts": "^0.25.0"
-  },
+  "version": "3.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "postinstall": "node scripts/buildEmojiData.mjs",
+    "dev:chromium": "BROWSER=chromium node scripts/buildManifest.mjs && vite",
+    "dev:firefox": "BROWSER=firefox node scripts/buildManifest.mjs && vite",
+    "predev": "mkdir -p ./dist && npm run inject:polyfill",
+    "_build": "tsc && vite build",
+    "build:chromium": "BROWSER=chromium node scripts/buildManifest.mjs && npm run _build",
+    "build:firefox": "BROWSER=firefox node scripts/buildManifest.mjs && npm run _build",
+    "postbuild": "npm run inject:polyfill",
+    "preview": "vite preview",
+    "inject:polyfill" : "cp ./node_modules/webextension-polyfill/dist/browser-polyfill.min.js ./dist/"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "emojilib": "^3.0.8",
+    "log-update": "^5.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "unicode-emoji-json": "^0.4.0",
+    "webextension-polyfill": "^0.10.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.15",
+    "@types/chrome": "^0.0.224",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "sass": "^1.59.3",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
   }
 }

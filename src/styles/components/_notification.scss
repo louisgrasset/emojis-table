@@ -1,0 +1,49 @@
+@keyframes slide-in {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+  100% {
+    bottom: 10px;
+    opacity: 1;
+  }
+}
+
+.notification {
+  user-select: none;
+  background-color: lighten($primary, 5);
+  animation: slide-in .15s ease-out forwards;
+  position: fixed;
+  bottom: 10px;
+  z-index: 99;
+  border-radius: 30px;
+  width: calc(100% - 70px);
+  left: 35px;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  padding: .5rem;
+  box-shadow: 0 4px 10px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.06);
+
+  &__icon {
+    text-align: center;
+    line-height: 1;
+    background-color: lighten($primary, 25);
+    border-radius: 30px;
+    display: flex;
+    font-weight: 700;
+    font-size: 12px;
+    margin-right: 15px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    font-size: 14px;
+    font-weight: 600;
+    color: darken($primary, 40);
+    margin-right: 5px;
+  }
+}
