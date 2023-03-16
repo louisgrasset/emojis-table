@@ -41,7 +41,7 @@ const buildManifestFor = (browser) => {
             ...commonManifest,
             "browser_specific_settings": {
                 "gecko": {
-                    "id": "emojistable@louisgrasset.fr",
+                    "id": "{3c793fa2-eef3-441a-b40e-fa77611b767a}",
                     "strict_min_version": "42.0"
                 }
             },
