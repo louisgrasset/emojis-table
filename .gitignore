@@ -12,6 +12,7 @@
 dist/
 
 # data
+manifest.json
 src/data/*.json
 
 # misc
