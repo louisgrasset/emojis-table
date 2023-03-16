@@ -1,10 +1,18 @@
 # emojis-table
 Get the right emojis from your browser in any tab!
 
-Available here [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/emojis-table/) | [Chrome Web Store](https://chrome.google.com/webstore/detail/lkpflloaceieinnhchbmfefimjliigcj/).
+## Browsers support
 
-### Build
-Just run `npm i` then `npm run build` 
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chromium/chromium_48x48.png" alt="Chromium" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)<br/>Chromium  |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Recent version                                                                                                                                                                                                    | Recent version                                                                                                                                                                                                   | 
+| [Available here](https://addons.mozilla.org/firefox/addon/emojis-table/)                                                                                                                                          | [Available here](https://chrome.google.com/webstore/detail/lkpflloaceieinnhchbmfefimjliigcj/).|
+
+## Build
+Just run `npm install` then either
+* `npm run build:firefox` or
+* `npm run build:chromium` 
 
 _Do not forget that emojis support is may differ from your operating system : 💻 / 📱 / ⌚._
-![emojis-table Screenshot](meta/emojis-table-screenshot.png)
+![emojis-table screenshot](meta/store-front.png)
+![emojis-table screenshot large](meta/store-marquee.png)
