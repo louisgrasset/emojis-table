@@ -42,7 +42,7 @@ const buildManifestFor = (browser) => {
             "browser_specific_settings": {
                 "gecko": {
                     "id": "{3c793fa2-eef3-441a-b40e-fa77611b767a}",
-                    "strict_min_version": "101.0"
+                    "strict_min_version": "109.0"
                 }
             },
         }
