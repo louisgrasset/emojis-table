@@ -1,2 +1,2 @@
 export const onCopyHandler = (text: string) =>
-    void navigator.clipboard.writeText(text);
+  void navigator.clipboard.writeText(text);
