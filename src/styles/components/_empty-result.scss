@@ -2,17 +2,23 @@
   text-align: center;
 
   h1 {
-    font-size: 128px;
+    font-size: 110px;
     margin-bottom: 0;
+    animation: pop-in .2s .1s ease-out forwards;
+    opacity: 0;
   }
 
   h2 {
     font-size: 24px;
     margin-bottom: 0;
+    color: var(--text-quiet)
   }
 
   p {
-    font-size: 16px;
+    margin-top: 5px;
+    text-transform: uppercase;
+    color: var(--text-supershy);
+    font-size: 12px;
   }
 }
 
