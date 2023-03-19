@@ -7,11 +7,17 @@ import { EmptyResult } from "./components/empty-result";
 import { pickRandomEmoji } from "./helpers/pick-random-emoji";
 import { EmojiGroup } from "./components/emoji-group";
 import { Notification } from "./components/notification";
+import { Feature } from "./types/Storage";
+import { useOnboarding } from "./hooks/use-onboarding";
+import { Onboarding } from "./components/onboarding";
 
 function App() {
   const randomEmoji = useMemo(() => pickRandomEmoji(), []);
   const [searchQuery, setSearchQuery] = useState("");
   const [showNotification, setShowNotification] = useState(false);
+  const { [Feature.COPY_FEATURE]: copyFeatureOnboardingSeen } = useOnboarding([
+    Feature.COPY_FEATURE,
+  ]);
   const groups = useMemo(
     () => emojidb as unknown as Record<string, Emoji[]>,
     [emojidb]
@@ -96,6 +102,9 @@ function App() {
         )}
       </section>
       {showNotification ? <Notification /> : null}
+      {copyFeatureOnboardingSeen ? null : (
+        <Onboarding feature={Feature.COPY_FEATURE} />
+      )}
     </div>
   );
 }
