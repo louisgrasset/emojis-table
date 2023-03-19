@@ -1,1 +1,24 @@
-$primary: #fedd00;
+$brand: #fedd00;
+
+:root {
+  --brand: $brand;
+  --background: #ffffff;
+  --background-section: #f0f0f0;
+  --border-modal: #d3d3d3;
+  --text-primary: #000000;
+  --text-secondary: #1c1c1c;
+  --text-quiet: #444444;
+  --text-supershy: #525252;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1b1b1b;
+    --background-section: #181818;
+    --border-modal: #383838;
+    --text-primary: #FFFFFF;
+    --text-secondary: #ececec;
+    --text-quiet: #a6a6a6;
+    --text-supershy: #838383;
+  }
+}
