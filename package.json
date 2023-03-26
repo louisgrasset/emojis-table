@@ -6,12 +6,10 @@
   "scripts": {
     "postinstall": "node scripts/buildEmojiData.mjs",
     "dev:chromium": "BROWSER=chromium node scripts/buildManifest.mjs && vite",
-    "dev:firefox": "BROWSER=firefox node scripts/buildManifest.mjs && vite",
     "predev": "mkdir -p ./dist && npm run inject:polyfill",
-    "_build": "tsc && vite build",
+    "_build": "tsc && vite build && npm run inject:polyfill",
     "build:chromium": "BROWSER=chromium node scripts/buildManifest.mjs && npm run _build",
     "build:firefox": "BROWSER=firefox node scripts/buildManifest.mjs && npm run _build",
-    "postbuild": "npm run inject:polyfill",
     "preview": "vite preview",
     "inject:polyfill": "cp ./node_modules/webextension-polyfill/dist/browser-polyfill.min.js ./dist/",
     "lint": "eslint src/ --ext .tsx,.ts --fix"
