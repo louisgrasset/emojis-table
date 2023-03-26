@@ -1,0 +1,11 @@
+#root {
+  width: 100%;
+}
+
+#app {
+  display: grid;
+  grid-template-areas:
+          'search'
+          'history'
+          'list';
+}

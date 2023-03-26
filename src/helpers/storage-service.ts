@@ -24,6 +24,23 @@ const migrateOnboarding = (prev: any): void => {
   void chrome.storage.sync.set({ onboarding });
 };
 
+const migrateUsagelogs = (prev: any): void => {
+  let usagelogs = StorageDefaults.usagelogs;
+  if (prev) {
+    usagelogs = {
+      ...usagelogs,
+      ...Object.keys(StorageDefaults.usagelogs).reduce((acc, usagelog) => {
+        const prevUsageLogCount = prev?.[usagelog];
+        return {
+          ...acc,
+          [usagelog]: prevUsageLogCount || 0,
+        };
+      }, {}),
+    };
+  }
+  void chrome.storage.sync.set({ usagelogs });
+};
+
 export const storageService = () => {
   // Clear previous extension history
   void chrome.storage.local.clear();
@@ -32,5 +49,6 @@ export const storageService = () => {
   void chrome.storage.sync.get(null).then((data) => {
     migrateHistory(data?.history);
     migrateOnboarding(data?.onboarding);
+    migrateUsagelogs(data?.usagelogs);
   });
 };
