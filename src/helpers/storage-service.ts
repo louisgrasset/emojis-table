@@ -1,4 +1,5 @@
-import { StorageDefaults } from "../types/Storage";
+import { StorageDefaults, UsageLog } from "../types/Storage";
+import { incrementUsageLogUpdate } from "./increment-usage-log-update";
 
 const migrateHistory = (prev: any): void => {
   // Reset storage when not set or malformed
@@ -51,4 +52,18 @@ export const storageService = () => {
     migrateOnboarding(data?.onboarding);
     migrateUsagelogs(data?.usagelogs);
   });
+
+  // Log usage on current day
+  const dayOfWeek = new Date().getUTCDay();
+  const correspondingLog = [
+    UsageLog.OPENINGS_ON_SUNDAY,
+    UsageLog.OPENINGS_ON_MONDAY,
+    UsageLog.OPENINGS_ON_TUESDAY,
+    UsageLog.OPENINGS_ON_WEDNESDAY,
+    UsageLog.OPENINGS_ON_THURSDAY,
+    UsageLog.OPENINGS_ON_FRIDAY,
+    UsageLog.OPENINGS_ON_SATURDAY,
+    UsageLog.OPENINGS_ON_SUNDAY,
+  ];
+  incrementUsageLogUpdate(correspondingLog[dayOfWeek]);
 };
