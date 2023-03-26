@@ -89,7 +89,6 @@ export const Onboarding = () => {
   } = useOnboarding([Feature.COPY_FEATURE, Feature.STORE_REVIEW]);
 
   const copiesCount = useUsageLogs(UsageLog.COPIES_COUNT);
-  useEffect(() => console.log(copiesCount), [copiesCount]);
   const feature = useMemo(() => {
     if (!copyFeatureOnboardingSeen) {
       return Feature.COPY_FEATURE;
