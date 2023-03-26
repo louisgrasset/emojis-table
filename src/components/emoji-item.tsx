@@ -1,6 +1,8 @@
 import { onCopyHandler } from "../helpers/on-copy-handler";
 import { useCallback } from "react";
 import { addToHistory } from "../helpers/add-to-history";
+import { incrementUsageLogUpdate } from "../helpers/increment-usage-log-update";
+import { UsageLog } from "../types/Storage";
 
 interface EmojiItemProps {
   emoji: string;
@@ -11,6 +13,7 @@ export const EmojiItem = ({ emoji, triggerUpdate }: EmojiItemProps) => {
   const onClickHander = useCallback(() => {
     onCopyHandler(emoji);
     addToHistory(emoji);
+    incrementUsageLogUpdate(UsageLog.COPIES_COUNT);
     if (triggerUpdate) {
       triggerUpdate();
     }
