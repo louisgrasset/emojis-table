@@ -6,7 +6,6 @@ export const markOnboardingFeatureAsSeen = (feature: Feature) => {
       const updatedOnboarding = data.onboarding;
       updatedOnboarding[feature] = true;
 
-      console.log(feature, data);
       chrome.storage.sync
         .set({ onboarding: updatedOnboarding })
         .then(resolve)
