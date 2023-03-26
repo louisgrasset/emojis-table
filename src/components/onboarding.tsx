@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Feature } from "../types/Storage";
+import { Feature, UsageLog } from "../types/Storage";
 import { getNavigator } from "../helpers/get-navigator";
 import { Navigator } from "../types/Navigator";
 import { ReactComponent as StoreFirefox } from "../icons/store-firefox.svg";
 import { ReactComponent as StoreChromium } from "../icons/store-chromium.svg";
 import { useOnboarding } from "../hooks/use-onboarding";
 import { markOnboardingFeatureAsSeen } from "../helpers/mark-onboarding-feature-as-seen";
+import { useUsageLogs } from "../hooks/use-usage-logs";
 
 interface OnboardingProps {
   feature: Feature;
@@ -87,13 +88,15 @@ export const Onboarding = () => {
     [Feature.STORE_REVIEW]: storeReviewFeatureSeen,
   } = useOnboarding([Feature.COPY_FEATURE, Feature.STORE_REVIEW]);
 
+  const copiesCount = useUsageLogs(UsageLog.COPIES_COUNT);
+  useEffect(() => console.log(copiesCount), [copiesCount]);
   const feature = useMemo(() => {
     if (!copyFeatureOnboardingSeen) {
       return Feature.COPY_FEATURE;
-    } else if (!storeReviewFeatureSeen) {
+    } else if (!storeReviewFeatureSeen && copiesCount && copiesCount >= 20) {
       return Feature.STORE_REVIEW;
     }
-  }, [copyFeatureOnboardingSeen, storeReviewFeatureSeen]);
+  }, [copyFeatureOnboardingSeen, storeReviewFeatureSeen, copiesCount]);
 
   const [visible, setVisible] = useState(true);
   const markAsSeen = useCallback(() => {
