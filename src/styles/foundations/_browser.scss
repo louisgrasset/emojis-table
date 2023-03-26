@@ -1,0 +1,53 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  height: 561px;
+  width: 350px;
+  font-size: 16px;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+button {
+  border-radius: 5px;
+  border: 1px solid transparent;
+  padding: 13px 15px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: $brand;
+  color: darken($brand, 30);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  text-transform: uppercase;
+  line-height: 0;
+
+  &:hover {
+    background-color: darken($brand, 1);
+    &:focus,
+    &:focus-visible {
+      background-color: darken($brand, 3);
+    }
+  }
+}
+
+
+a {
+  font-weight: 500;
+  color: $brand;
+  text-decoration: inherit;
+
+  &:hover {
+    color: darken($brand, 20);
+  }
+}

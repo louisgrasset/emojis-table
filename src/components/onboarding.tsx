@@ -1,43 +1,117 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Feature } from "../types/Storage";
+import { getNavigator } from "../helpers/get-navigator";
+import { Navigator } from "../types/Navigator";
+import { ReactComponent as StoreFirefox } from "../icons/store-firefox.svg";
+import { ReactComponent as StoreChromium } from "../icons/store-chromium.svg";
+import { useOnboarding } from "../hooks/use-onboarding";
 import { markOnboardingFeatureAsSeen } from "../helpers/mark-onboarding-feature-as-seen";
 
 interface OnboardingProps {
   feature: Feature;
+  markAsSeen: () => Promise<unknown>;
 }
 
-export const Onboarding = ({ feature }: OnboardingProps) => {
-  const [visible, setVisible] = useState(true);
-  const markAsSeen = useCallback(() => {
-    markOnboardingFeatureAsSeen(feature);
-    setVisible(false);
-  }, [feature]);
-  const content = useMemo(() => {
+export const OnboardingComponent = ({
+  feature,
+  markAsSeen,
+}: OnboardingProps) => {
+  const [icon, setIcon] = useState<JSX.Element | string>("");
+  const [title, setTitle] = useState<JSX.Element | string>("");
+  const [description, setDescription] = useState<JSX.Element | string>("");
+
+  useEffect(() => {
+    const navigator = getNavigator();
+    const reviewHandler = () => {
+      markAsSeen().then(() => {
+        const url =
+          navigator === Navigator.FIREFOX
+            ? "https://addons.mozilla.org/firefox/addon/emojis-table/"
+            : "https://chrome.google.com/webstore/detail/emojis-table/lkpflloaceieinnhchbmfefimjliigcj";
+
+        window.open(url, "_blank");
+      });
+    };
+
     switch (feature) {
       case Feature.COPY_FEATURE:
-        return (
+        setIcon("📋");
+        setTitle("Copy");
+        setDescription(
           <>
-            <div className="onboarding__content-icon">📋</div>
-            <h2 className="onboarding__content-title">Copy</h2>
-            <p className="onboarding__content-description">
-              To copy an emoji, simply <b>click</b> on it! Then, you can paste
-              it anywhere you want
-            </p>
-
-            <div
-              title={"Close"}
-              onClick={markAsSeen}
-              className="onboarding__content-close"
-            >
-              ×
-            </div>
+            To copy an emoji, simply <b>click</b> on it! Then, you can paste it
+            anywhere you want
           </>
         );
+        break;
+      case Feature.STORE_REVIEW:
+        setIcon(
+          navigator === Navigator.FIREFOX ? <StoreFirefox /> : <StoreChromium />
+        );
+
+        setTitle("Enjoying Emojis table?");
+        setDescription(
+          <>
+            We would love to hear your thoughts and feedback in a review.
+            <button style={{ marginTop: "5px" }} onClick={reviewHandler}>
+              Leave a review
+            </button>
+          </>
+        );
+        break;
     }
   }, [feature]);
-  return visible ? (
+
+  return (
     <div className="onboarding">
-      <div className="onboarding__content">{content}</div>
+      <div className="onboarding__content">
+        <div className="onboarding__content-icon">{icon}</div>
+        <h2 className="onboarding__content-title">{title}</h2>
+        <p className="onboarding__content-description">{description}</p>
+
+        <div
+          title={"Close"}
+          onClick={markAsSeen}
+          className="onboarding__content-close"
+        >
+          ×
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const Onboarding = () => {
+  const {
+    [Feature.COPY_FEATURE]: copyFeatureOnboardingSeen,
+    [Feature.STORE_REVIEW]: storeReviewFeatureSeen,
+  } = useOnboarding([Feature.COPY_FEATURE, Feature.STORE_REVIEW]);
+
+  const feature = useMemo(() => {
+    if (!copyFeatureOnboardingSeen) {
+      return Feature.COPY_FEATURE;
+    } else if (!storeReviewFeatureSeen) {
+      return Feature.STORE_REVIEW;
+    }
+  }, [copyFeatureOnboardingSeen, storeReviewFeatureSeen]);
+
+  const [visible, setVisible] = useState(true);
+  const markAsSeen = useCallback(() => {
+    return new Promise((resolve, reject) => {
+      if (feature) {
+        markOnboardingFeatureAsSeen(feature)
+          .then(() => setVisible(false))
+          .then(resolve)
+          .catch(reject);
+      }
+    });
+  }, [feature]);
+
+  return feature && visible ? (
+    <div className="onboarding">
+      <div className="onboarding__content">
+        <OnboardingComponent feature={feature} markAsSeen={markAsSeen} />
+      </div>
     </div>
   ) : null;
 };

@@ -13,9 +13,9 @@
     position: relative;
     padding: 16px;
     border-radius: 8px;
-    background-color: var(--background-section);
+    background-color: var(--background);
     border: 1px solid var(--border-modal);
-    box-shadow: 0 4px 16px #838383;
+    box-shadow: 0 4px 16px #b2b2b2;
 
     @media (prefers-color-scheme: dark) {
       box-shadow: 0 4px 16px #000000;
@@ -29,6 +29,10 @@
     &-icon {
       grid-area: icon;
       font-size: 32px;
+      svg {
+        height: 100%;
+        width: 100%;
+      }
     }
 
     &-title {
@@ -41,6 +45,7 @@
     }
 
     &-description {
+      font-size: 14px;
       margin-top: 0;
       grid-area: description;
       color: var(--text-quiet);

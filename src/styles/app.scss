@@ -1,5 +1,7 @@
 @import "foundations/colors";
 @import "foundations/animations";
+@import "foundations/browser";
+@import "foundations/layout";
 
 @import "components/emoji-group";
 @import "components/emoji-item";
@@ -10,22 +12,3 @@
 
 @import "sections/section-search";
 @import "sections/section-list";
-
-body {
-  height: 561px;
-  width: 350px;
-  font-size: 16px;
-  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-
-#root {
-  width: 100%;
-}
-
-#app {
-  display: grid;
-  grid-template-areas:
-          'search'
-          'history'
-          'list';
-}

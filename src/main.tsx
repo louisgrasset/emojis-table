@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./app";
 import { storageService } from "./helpers/storage-service";
-import "./index.css";
 
 storageService();
 
