@@ -8,10 +8,14 @@ import { pickRandomEmoji } from "./helpers/pick-random-emoji";
 import { EmojiGroup } from "./components/emoji-group";
 import { Notification } from "./components/notification";
 import { Onboarding } from "./components/onboarding";
+import { incrementUsageLogUpdate } from "./helpers/increment-usage-log-update";
+import { UsageLog } from "./types/Storage";
 
+const DEBOUNCE_DURATION = 200;
 function App() {
   const randomEmoji = useMemo(() => pickRandomEmoji(), []);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedsearchQuery] = useState("");
   const [showNotification, setShowNotification] = useState(false);
   const groups = useMemo(
     () => emojidb as unknown as Record<string, Emoji[]>,
@@ -22,16 +26,16 @@ function App() {
       ([group, data]) =>
         [
           group,
-          searchQuery.length > 0
+          debouncedSearchQuery.length > 0
             ? data.filter((emojiData) =>
                 emojiData.description.some((description) =>
-                  description.includes(searchQuery)
+                  description.includes(debouncedSearchQuery)
                 )
               )
             : data,
         ] as [string, Emoji[]]
     );
-  }, [searchQuery]);
+  }, [debouncedSearchQuery]);
 
   const isResultEmpty = useMemo<boolean>(() => {
     if (searchQuery.length === 0) {
@@ -66,6 +70,16 @@ function App() {
     };
   }, [showNotification]);
 
+  let debounceTimeout: number;
+  const debouncedSearch = useCallback((query: string) => {
+    setSearchQuery(query);
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+      setDebouncedsearchQuery(query);
+      incrementUsageLogUpdate(UsageLog.SEARCHES_COUNT);
+    }, DEBOUNCE_DURATION);
+  }, []);
+
   return (
     <div className="app">
       <section className="section-search">
@@ -73,7 +87,7 @@ function App() {
           autoFocus={true}
           type="text"
           placeholder={randomEmoji.description[0].toLowerCase()}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => debouncedSearch(e.target.value)}
         />
       </section>
       <History
