@@ -1,14 +1,14 @@
 import { StorageDefaults, UsageLog } from "../types/Storage";
 import { incrementUsageLogUpdate } from "./increment-usage-log-update";
 
-const migrateHistory = (prev: any): void => {
+const migrateHistory = async (prev: any): Promise<void> => {
   // Reset storage when not set or malformed
   if (!prev || !Array.isArray(prev) || prev.length !== 6) {
-    void chrome.storage.sync.set({ history: StorageDefaults.history });
+    await chrome.storage.sync.set({ history: StorageDefaults.history });
   }
 };
 
-const migrateOnboarding = (prev: any): void => {
+const migrateOnboarding = async (prev: any): Promise<void> => {
   let onboarding = StorageDefaults.onboarding;
   if (prev) {
     onboarding = {
@@ -22,10 +22,10 @@ const migrateOnboarding = (prev: any): void => {
       }, {}),
     };
   }
-  void chrome.storage.sync.set({ onboarding });
+  await chrome.storage.sync.set({ onboarding });
 };
 
-const migrateUsagelogs = (prev: any): void => {
+const migrateUsagelogs = async (prev: any): Promise<void> => {
   let usagelogs = StorageDefaults.usagelogs;
   if (prev) {
     usagelogs = {
@@ -39,18 +39,18 @@ const migrateUsagelogs = (prev: any): void => {
       }, {}),
     };
   }
-  void chrome.storage.sync.set({ usagelogs });
+  await chrome.storage.sync.set({ usagelogs });
 };
 
-export const storageService = () => {
+export const storageService = async () => {
   // Clear previous extension history
   void chrome.storage.local.clear();
 
   // Migrate storage
-  void chrome.storage.sync.get(null).then((data) => {
-    migrateHistory(data?.history);
-    migrateOnboarding(data?.onboarding);
-    migrateUsagelogs(data?.usagelogs);
+  await chrome.storage.sync.get(null).then(async (data) => {
+    await migrateHistory(data?.history);
+    await migrateOnboarding(data?.onboarding);
+    await migrateUsagelogs(data?.usagelogs);
   });
 
   // Log usage on current day
