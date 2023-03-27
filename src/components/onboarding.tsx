@@ -20,6 +20,7 @@ export const OnboardingComponent = ({
   const [icon, setIcon] = useState<JSX.Element | string>("");
   const [title, setTitle] = useState<JSX.Element | string>("");
   const [description, setDescription] = useState<JSX.Element | string>("");
+  const [action, setAction] = useState<JSX.Element | string>("");
 
   useEffect(() => {
     const navigator = getNavigator();
@@ -52,13 +53,9 @@ export const OnboardingComponent = ({
 
         setTitle("Enjoying Emojis table?");
         setDescription(
-          <>
-            We would love to hear your thoughts and feedback in a review.
-            <button style={{ marginTop: "5px" }} onClick={reviewHandler}>
-              Leave a review
-            </button>
-          </>
+          "We would love to hear your thoughts and feedback in a review."
         );
+        setAction(<button onClick={reviewHandler}>Leave a review</button>);
         break;
     }
   }, [feature]);
@@ -69,6 +66,7 @@ export const OnboardingComponent = ({
         <div className="onboarding__content-icon">{icon}</div>
         <h2 className="onboarding__content-title">{title}</h2>
         <p className="onboarding__content-description">{description}</p>
+        <div className="onboarding__content-action">{action}</div>
 
         <div
           title={"Close"}

@@ -29,12 +29,21 @@ button {
   background-color: $brand;
   color: darken($brand, 30);
   cursor: pointer;
-  transition: border-color 0.25s;
   text-transform: uppercase;
   line-height: 0;
+  transition: transform .15s ease-out, border-color 0.25s;
 
   &:hover {
+    transform: scale(1.05);
+  }
+  &:hover {
     background-color: darken($brand, 1);
+    transform: scale(1.01);
+
+    &:active {
+      transform: scale(0.9);
+    }
+
     &:focus,
     &:focus-visible {
       background-color: darken($brand, 3);

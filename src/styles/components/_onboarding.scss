@@ -5,7 +5,7 @@
   left: 0;
   box-sizing: border-box;
   width: 100%;
-  padding: 32px;
+  padding: 24px;
   animation: pop-in .2s .2s ease-out forwards;
   opacity: 0;
 
@@ -15,23 +15,30 @@
     border-radius: 8px;
     background-color: var(--background);
     border: 1px solid var(--border-modal);
-    box-shadow: 0 4px 16px #b2b2b2;
-
-    @media (prefers-color-scheme: dark) {
-      box-shadow: 0 4px 16px #000000;
-    }
-      display: grid;
+    display: grid;
     column-gap: 1rem;
     grid-template-areas: 'title title'
     'icon description'
-    'icon description';
+    'icon description'
+    'action action';
+    box-shadow: 0 4px 16px #b2b2b2;
+    @media (prefers-color-scheme: dark) {
+      box-shadow: 0 4px 16px #000000;
+    }
 
     &-icon {
       grid-area: icon;
       font-size: 32px;
+      width: 56px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       svg {
-        height: 100%;
-        width: 100%;
+        width: 80%;
+        display: block;
+        margin: 0 auto;
       }
     }
 
@@ -46,9 +53,9 @@
 
     &-description {
       font-size: 14px;
-      margin-top: 0;
       grid-area: description;
       color: var(--text-quiet);
+      margin: 0;
     }
 
     &-close {
@@ -77,6 +84,17 @@
       &:active {
         background: var(--background);
         transform: scale(0.9);
+      }
+    }
+
+    &-action {
+      grid-area: action;
+      padding: 5px 0;
+
+      button {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
       }
     }
   }
