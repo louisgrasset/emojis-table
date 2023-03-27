@@ -110,10 +110,6 @@ export const Onboarding = () => {
   }, [feature]);
 
   return feature && visible ? (
-    <div className="onboarding">
-      <div className="onboarding__content">
-        <OnboardingComponent feature={feature} markAsSeen={markAsSeen} />
-      </div>
-    </div>
+    <OnboardingComponent feature={feature} markAsSeen={markAsSeen} />
   ) : null;
 };
