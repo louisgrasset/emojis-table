@@ -19,7 +19,7 @@ function App() {
   const [showNotification, setShowNotification] = useState(false);
   const groups = useMemo(
     () => emojidb as unknown as Record<string, Emoji[]>,
-    [emojidb]
+    [emojidb],
   );
   const filteredGroups = useMemo(() => {
     return Object.entries(groups).map(
@@ -29,11 +29,11 @@ function App() {
           debouncedSearchQuery.length > 0
             ? data.filter((emojiData) =>
                 emojiData.description.some((description) =>
-                  description.includes(debouncedSearchQuery)
-                )
+                  description.includes(debouncedSearchQuery),
+                ),
               )
             : data,
-        ] as [string, Emoji[]]
+        ] as [string, Emoji[]],
     );
   }, [debouncedSearchQuery]);
 
@@ -70,7 +70,7 @@ function App() {
     };
   }, [showNotification]);
 
-  let debounceTimeout: number;
+  let debounceTimeout: number | NodeJS.Timeout;
   const debouncedSearch = useCallback((query: string) => {
     setSearchQuery(query);
     clearTimeout(debounceTimeout);
@@ -106,7 +106,7 @@ function App() {
                 data={data}
                 triggerUpdate={triggerUpdateHandler}
               />
-            ) : null
+            ) : null,
           )
         )}
       </section>
