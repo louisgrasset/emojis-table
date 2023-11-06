@@ -15,28 +15,28 @@
     "lint": "eslint src/ --ext .tsx,.ts --fix"
   },
   "dependencies": {
-    "emojilib": "^3.0.9",
-    "log-update": "^5.0.1",
+    "emojilib": "^3.0.11",
+    "log-update": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "unicode-emoji-json": "^0.4.0",
-    "vite-plugin-svgr": "^2.4.0",
+    "vite-plugin-svgr": "^4.1.0",
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.15",
-    "@types/chrome": "^0.0.225",
-    "@types/react": "^18.0.29",
-    "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
-    "@vitejs/plugin-react": "^3.1.0",
-    "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.32.2",
-    "sass": "^1.60.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.1"
+    "@types/chrome": "^0.0.249",
+    "@types/react": "^18.2.35",
+    "@types/react-dom": "^18.2.14",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "@vitejs/plugin-react": "^4.1.1",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "sass": "^1.69.5",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
   }
 }
