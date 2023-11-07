@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Feature, UsageLog } from "../types/Storage";
 import { getNavigator } from "../helpers/get-navigator";
 import { Navigator } from "../types/Navigator";
-import { ReactComponent as StoreFirefox } from "../icons/store-firefox.svg";
-import { ReactComponent as StoreChromium } from "../icons/store-chromium.svg";
+import StoreFirefox from "../icons/store-firefox.svg";
+import StoreChromium from "../icons/store-chromium.svg";
 import { useOnboarding } from "../hooks/use-onboarding";
 import { markOnboardingFeatureAsSeen } from "../helpers/mark-onboarding-feature-as-seen";
 import { useUsageLogs } from "../hooks/use-usage-logs";
@@ -43,17 +43,21 @@ export const OnboardingComponent = ({
           <>
             To copy an emoji, simply <b>click</b> on it! Then, you can paste it
             anywhere you want
-          </>
+          </>,
         );
         break;
       case Feature.STORE_REVIEW:
         setIcon(
-          navigator === Navigator.FIREFOX ? <StoreFirefox /> : <StoreChromium />
+          navigator === Navigator.FIREFOX ? (
+            <StoreFirefox />
+          ) : (
+            <StoreChromium />
+          ),
         );
 
         setTitle("Enjoying Emojis table?");
         setDescription(
-          "We would love to hear your thoughts and feedback in a review."
+          "We would love to hear your thoughts and feedback in a review.",
         );
         setAction(<button onClick={reviewHandler}>Leave a review</button>);
         break;

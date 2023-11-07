@@ -7,5 +7,12 @@ import manifest from "./manifest.config";
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  plugins: [react(), svgr(), crx({ manifest })],
+  plugins: [
+    react(),
+    svgr({
+      exportType: "named",
+      jsxRuntime: "classic",
+    }),
+    crx({ manifest }),
+  ],
 });

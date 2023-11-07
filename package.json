@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev:chromium": "BROWSER=chromium node scripts/buildManifest.mjs && vite",
-    "predev": "mkdir -p ./dist && npm run inject:polyfill && npm run build:emojis",
+    "predev": "mkdir -p ./dist && npm run inject:polyfill && npm run _build:emojis",
     "_build": "tsc && vite build && npm run inject:polyfill",
-    "build:chromium": "npm run build:emojis && BROWSER=chromium node scripts/buildManifest.mjs && npm run _build",
-    "build:firefox": "npm run build:emojis && BROWSER=firefox node scripts/buildManifest.mjs && npm run _build",
-    "build:emojis": "node scripts/buildEmojiData.mjs",
+    "_build:emojis": "node scripts/buildEmojiData.mjs",
+    "build:chromium": "npm run _build:emojis && BROWSER=chromium node scripts/buildManifest.mjs && npm run _build",
+    "build:firefox": "npm run _build:emojis && BROWSER=firefox node scripts/buildManifest.mjs && npm run _build",
     "preview": "vite preview",
     "inject:polyfill": "cp ./node_modules/webextension-polyfill/dist/browser-polyfill.min.js ./dist/",
-    "lint": "eslint src/ --ext .tsx,.ts --fix"
+    "lint": "eslint src/ --ext .tsx,.ts --fix",
+    "test": "jest --config meta/testing/jest.config.cjs"
   },
   "dependencies": {
     "emojilib": "^3.0.11",
@@ -25,7 +26,9 @@
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.15",
+    "@testing-library/react": "^14.0.0",
     "@types/chrome": "^0.0.249",
+    "@types/jest": "^29.5.6",
     "@types/react": "^18.2.35",
     "@types/react-dom": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
@@ -35,7 +38,10 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "sass": "^1.69.5",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   }
