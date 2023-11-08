@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+
 import { Feature } from "../types/Storage";
 
 export const useOnboarding = (
-  requestedFeatures: Feature[]
+  requestedFeatures: Feature[],
 ): Record<string, boolean | null> => {
   const [features, setFeatures] = useState(
-    requestedFeatures.reduce((acc, feat) => ({ ...acc, [feat]: null }), {})
+    requestedFeatures.reduce((acc, feat) => ({ ...acc, [feat]: null }), {}),
   );
 
   useEffect(() => {

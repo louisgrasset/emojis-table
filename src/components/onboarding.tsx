@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Feature, UsageLog } from "../types/Storage";
+
 import { getNavigator } from "../helpers/get-navigator";
-import { Navigator } from "../types/Navigator";
-import StoreFirefox from "../icons/store-firefox.svg";
-import StoreChromium from "../icons/store-chromium.svg";
-import { useOnboarding } from "../hooks/use-onboarding";
 import { markOnboardingFeatureAsSeen } from "../helpers/mark-onboarding-feature-as-seen";
+import { useOnboarding } from "../hooks/use-onboarding";
 import { useUsageLogs } from "../hooks/use-usage-logs";
+import StoreChromium from "../icons/store-chromium.svg";
+import StoreFirefox from "../icons/store-firefox.svg";
+import { Navigator } from "../types/Navigator";
+import { Feature, UsageLog } from "../types/Storage";
 
 interface OnboardingProps {
   feature: Feature;

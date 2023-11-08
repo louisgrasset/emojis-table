@@ -21,14 +21,14 @@ export const StorageDefaults = {
       ...data,
       [feature]: false,
     }),
-    {}
+    {},
   ),
   usagelogs: Object.keys(UsageLog).reduce(
     (data, usagelog) => ({
       ...data,
       [usagelog]: 0,
     }),
-    {}
+    {},
   ),
 };
 

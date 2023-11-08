@@ -1,5 +1,6 @@
-import { EmojiItem } from "./emoji-item";
 import { useEffect, useState } from "react";
+
+import { EmojiItem } from "./emoji-item";
 
 interface HistoryProps {
   lastUpdateTimestamp: number;
