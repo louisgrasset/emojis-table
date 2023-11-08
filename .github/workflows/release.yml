@@ -25,8 +25,8 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
 
-
   github-release:
+    environment: "Production"
     needs:
       - create-tag
     name: "Create GitHub release"
@@ -48,40 +48,36 @@ jobs:
           tag_name: ${{needs.create-tag.outputs.tag}}
           name: Release ${{needs.create-tag.outputs.tag}}
           body: ${{ steps.changelog.outputs.changes }}
+          files: Release.txt
 
   build-from-source:
+    environment: "Production"
     needs:
       - create-tag
-    name: "Build & Release docker image (tag)"
+    name: "Build extension"
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
+
+    strategy:
+      matrix:
+        browser: ['chromium', 'firefox']
+
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Log in to the GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build for ${{ matrix.browser }}
+        run: npm run build:${{ matrix.browser }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            ${{ github.repository }}
-            ghcr.io/${{ github.repository }}
-          tags: |
-            type=raw,value=latest
-            type=semver,pattern={{version}},value=${{needs.create-tag.outputs.version}}
-            type=semver,pattern={{major}}.{{minor}},value=${{needs.create-tag.outputs.version}}
+      - name: Compress build
+        run: zip -r -j emojis-table-${{ matrix.browser }}-${{needs.create-tag.outputs.tag}}.zip dist/*
+
+      - name: Upload Release Assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{needs.create-tag.outputs.tag}} emojis-table-${{ matrix.browser }}-${{needs.create-tag.outputs.tag}}.zip
