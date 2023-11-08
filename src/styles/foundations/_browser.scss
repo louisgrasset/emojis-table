@@ -34,9 +34,6 @@ button {
   transition: transform .15s ease-out, border-color 0.25s;
 
   &:hover {
-    transform: scale(1.05);
-  }
-  &:hover {
     background-color: darken($brand, 1);
     transform: scale(1.01);
 
