@@ -48,7 +48,6 @@ jobs:
           tag_name: ${{needs.create-tag.outputs.tag}}
           name: Release ${{needs.create-tag.outputs.tag}}
           body: ${{ steps.changelog.outputs.changes }}
-          files: Release.txt
 
   build-from-source:
     environment: "Production"
@@ -57,8 +56,7 @@ jobs:
     name: "Build extension"
     runs-on: ubuntu-latest
     permissions:
-      packages: write
-      contents: read
+      contents: write
 
     strategy:
       matrix:
@@ -75,7 +73,7 @@ jobs:
         run: npm run build:${{ matrix.browser }}
 
       - name: Compress build
-        run: zip -r -j emojis-table-${{ matrix.browser }}-${{needs.create-tag.outputs.tag}}.zip dist/*
+        run: cd ./dist && zip -r ../emojis-table-${{ matrix.browser }}-${{needs.create-tag.outputs.tag}}.zip .
 
       - name: Upload Release Assets
         env:
