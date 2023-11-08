@@ -1,57 +1,114 @@
-name: ci
+name: Continuous Integration
 
 on:
   push:
-    branches:
-      - 'main'
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - 'main'
 
 jobs:
-  install:
+  tests:
+    name: "Tests Validation"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install dependencies (with dev)
+        run: npm ci --include=dev
+
+      - name: Build emojis
+        run: npm run _build:emojis
+
+      - name: Run test and coverage
+        run: npm run test -- --coverage
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=louisgrasset
+            -Dsonar.projectKey=louisgrasset_emojis-table
+            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+            -Dsonar.sources=src
+            -Dsonar.exclusions=src/**/__tests__/**
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=src/**/__tests__/**
+
+  commitlint:
+    name: "Commitlint Validation"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install dependencies (with dev)
+        run: npm ci --include=dev
+
+      - name: Validate current commit (last commit) with commitlint
+        if: github.event_name == 'push'
+        run: npx commitlint --from HEAD~1 --to HEAD --verbose
+
+      - name: Validate PR commits with commitlint
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+  eslint:
+    name: "Eslint Validation"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      - name: Run Eslint
+        run: npm run lint
 
   build:
-    needs: [install]
+    name: "Build from source"
+    needs:
+      - tests
+      - commitlint
+      - eslint
     runs-on: ubuntu-latest
-    environment: Production
 
     strategy:
       matrix:
         browser: ['chromium', 'firefox']
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Check out the repo
+        uses: actions/checkout@v4
 
-      - name: Use node_modules cache
-        uses: actions/cache@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          path: ./node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build for ${{ matrix.browser }}
         run: npm run build:${{ matrix.browser }}
@@ -59,5 +116,6 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: emojis-table-${{ matrix.browser }}
+          name: emojis-table-${{ matrix.browser }}-${{ github.sha }}
           path: dist
+          retention-days: 7
