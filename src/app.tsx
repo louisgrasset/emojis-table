@@ -1,14 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { History } from "./components/history";
-import emojidb from "./data/emojidb.json";
-import { Emoji } from "./types/Emoji";
 import "./styles/app.scss";
-import { EmptyResult } from "./components/empty-result";
-import { pickRandomEmoji } from "./helpers/pick-random-emoji";
+
+import { useCallback, useEffect, useMemo, useState } from "react";
+
 import { EmojiGroup } from "./components/emoji-group";
+import { EmptyResult } from "./components/empty-result";
+import { History } from "./components/history";
 import { Notification } from "./components/notification";
 import { Onboarding } from "./components/onboarding";
+import emojidb from "./data/emojidb.json";
 import { incrementUsageLogUpdate } from "./helpers/increment-usage-log-update";
+import { pickRandomEmoji } from "./helpers/pick-random-emoji";
+import { Emoji } from "./types/Emoji";
 import { UsageLog } from "./types/Storage";
 
 const DEBOUNCE_DURATION = 200;

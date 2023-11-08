@@ -1,5 +1,5 @@
-import { EmojiItem } from "./emoji-item";
 import { Emoji } from "../types/Emoji";
+import { EmojiItem } from "./emoji-item";
 
 interface EmojiGroupProps {
   group: string;

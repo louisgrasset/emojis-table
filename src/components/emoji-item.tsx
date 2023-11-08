@@ -1,7 +1,8 @@
-import { onCopyHandler } from "../helpers/on-copy-handler";
 import { useCallback } from "react";
+
 import { addToHistory } from "../helpers/add-to-history";
 import { incrementUsageLogUpdate } from "../helpers/increment-usage-log-update";
+import { onCopyHandler } from "../helpers/on-copy-handler";
 import { UsageLog } from "../types/Storage";
 
 interface EmojiItemProps {

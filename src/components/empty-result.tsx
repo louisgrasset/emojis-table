@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+
 import { pickRandomEmoji } from "../helpers/pick-random-emoji";
 
 export const EmptyResult = () => {

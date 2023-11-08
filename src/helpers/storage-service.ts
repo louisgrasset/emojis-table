@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StorageDefaults, UsageLog } from "../types/Storage";
 import { incrementUsageLogUpdate } from "./increment-usage-log-update";
 

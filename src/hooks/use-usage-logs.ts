@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { UsageLog } from "../types/Storage";
 
 export const useUsageLogs = (usagelog: UsageLog): number | null => {
