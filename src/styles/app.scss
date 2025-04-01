@@ -1,16 +1,16 @@
-@import "foundations/colors";
-@import "foundations/animations";
-@import "foundations/browser";
-@import "foundations/layout";
+@use "foundations/colors";
+@use "foundations/animations";
+@use "foundations/browser";
+@use "foundations/layout";
 
-@import "components/emoji-group";
-@import "components/emoji-item";
-@import "components/empty-result";
-@import "components/history";
-@import "components/notification";
-@import "components/onboarding";
+@use "components/emoji-group";
+@use "components/emoji-item";
+@use "components/empty-result";
+@use "components/history";
+@use "components/notification";
+@use "components/onboarding";
 
-@import "sections/section-search";
-@import "sections/section-list";
+@use "sections/section-search";
+@use "sections/section-list";
 
 // Silence is golden
