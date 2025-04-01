@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { JSX, useCallback, useEffect, useMemo, useState } from "react";
 
 import { getNavigator } from "../helpers/get-navigator";
 import { markOnboardingFeatureAsSeen } from "../helpers/mark-onboarding-feature-as-seen";
