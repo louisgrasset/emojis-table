@@ -1,3 +1,7 @@
+@use "../foundations/colors";
+
+@use "sass:color";
+
 @keyframes slide-in {
   0% {
     bottom: 0;
@@ -11,7 +15,7 @@
 
 .notification {
   user-select: none;
-  background-color: lighten($brand, 5);
+  background-color: color.adjust(colors.$brand,  $lightness: 5%);
   animation: slide-in .15s ease-out forwards;
   position: fixed;
   bottom: 10px;
@@ -30,7 +34,7 @@
   &__icon {
     text-align: center;
     line-height: 1;
-    background-color: lighten($brand, 35);
+    background-color: color.adjust(colors.$brand,  $lightness: 35%);
     border-radius: 30px;
     display: flex;
     font-weight: 700;
@@ -44,7 +48,7 @@
   &__content {
     font-size: 14px;
     font-weight: 600;
-    color: darken($brand, 40);
-    margin-right: 5px;
+    color: color.scale(colors.$brand, $lightness: -40%);
+   margin-right: 5px;
   }
 }

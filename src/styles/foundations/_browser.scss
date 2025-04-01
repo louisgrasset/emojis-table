@@ -1,3 +1,7 @@
+@use "colors";
+
+@use "sass:color";
+
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -26,15 +30,15 @@ button {
   font-size: 12px;
   font-weight: 600;
   font-family: inherit;
-  background-color: $brand;
-  color: darken($brand, 30);
+  background-color: colors.$brand;
+  color: color.scale(colors.$brand,  $lightness: -30%);
   cursor: pointer;
   text-transform: uppercase;
   line-height: 0;
   transition: transform .15s ease-out, border-color 0.25s;
 
   &:hover {
-    background-color: darken($brand, 1);
+    background-color: color.scale(colors.$brand, $lightness:  -1%);
     transform: scale(1.01);
 
     &:active {
@@ -43,7 +47,7 @@ button {
 
     &:focus,
     &:focus-visible {
-      background-color: darken($brand, 3);
+      background-color: color.scale(colors.$brand, $lightness:  -3%);
     }
   }
 }
@@ -51,10 +55,10 @@ button {
 
 a {
   font-weight: 500;
-  color: $brand;
+  color: colors.$brand;
   text-decoration: inherit;
 
   &:hover {
-    color: darken($brand, 20);
+    color: color.scale(colors.$brand,  $lightness: -20%);
   }
 }
