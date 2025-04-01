@@ -114,7 +114,7 @@ jobs:
         run: npm run build:${{ matrix.browser }}
 
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: emojis-table-${{ matrix.browser }}-${{ github.sha }}
           path: dist
